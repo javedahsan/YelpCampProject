@@ -158,7 +158,6 @@
 ## Deleting Campgrounds
 * Add Destroy Route
 * Add Delete button
-* 
 
 
 ## Authorization part 1: Campgrounds
