@@ -1,3 +1,2 @@
 # Exclude following items
-    *.log
-    
+npm-debug.log
