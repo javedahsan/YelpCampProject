@@ -21,12 +21,12 @@
 
 * Start Application Server:
     * open new terminal session
-        * cd <project location >
+        * cd project location
         * run from command line "node app.js"
 
 * Start Executing Testcases:
     * open new terminal session or execute the following command from Visual Studio code terminal
-        * cd <project location >
+        * cd project location
         * run from command line "npm test"
 
 * Review the Test Result Report:
