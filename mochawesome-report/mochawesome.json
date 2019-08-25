@@ -1,0 +1,312 @@
+{
+  "stats": {
+    "suites": 3,
+    "tests": 10,
+    "passes": 10,
+    "pending": 0,
+    "failures": 0,
+    "start": "2019-08-24T23:28:04.376Z",
+    "end": "2019-08-24T23:28:04.929Z",
+    "duration": 553,
+    "testsRegistered": 10,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f24e0ad8-af79-4f29-8eb4-6dbf98988706",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f49ab655-f3d2-4ec6-9b5f-7ddfe761a1b5",
+          "title": "YelpCamp",
+          "fullFile": "D:\\myYelpCampProject\\YelpCampProject\\test\\test-campgrounds.js",
+          "file": "\\test\\test-campgrounds.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should display home page on / GET",
+              "fullTitle": "YelpCamp should display home page on / GET",
+              "timedOut": false,
+              "duration": 78,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n    .get('/')\n    .end(function(err, res){\n        if(err) throw err;\n        expect(err).to.be.a('null');\n        expect(res).to.not.be.a('null');\n        res.should.have.status(200);\n        res.text.should.contain('<title>YelpCamp</title>');\n        res.text.should.match(/<h1>Welcome to YelpCamp!<\\/h1>/);   \n        done();\n    }); // end",
+              "err": {},
+              "uuid": "d86520a3-c8a0-4424-ba8f-7b724174f0c0",
+              "parentUUID": "f49ab655-f3d2-4ec6-9b5f-7ddfe761a1b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Return Error code for invalid url",
+              "fullTitle": "YelpCamp Return Error code for invalid url",
+              "timedOut": false,
+              "duration": 26,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n    .get('/MM')\n    .end(function (err, res){\n    res.status.should.equal(404);\n  done();\n  });",
+              "err": {},
+              "uuid": "3f123fb4-6f2c-4af8-a38e-cd8b04524ff8",
+              "parentUUID": "f49ab655-f3d2-4ec6-9b5f-7ddfe761a1b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should list all campgrounds on /campgrounds GET",
+              "fullTitle": "YelpCamp should list all campgrounds on /campgrounds GET",
+              "timedOut": false,
+              "duration": 176,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n    .get('/campgrounds')\n    .end(function(err, res){\n        if(err) throw err;\n        expect(err).to.be.a('null');\n        expect(res).to.not.be.a('null');\n        res.should.have.status(200);\n        compoundLinks = getHrefs(res.text);\n        compoundLinks.should.be.a('array');\n        compoundLinks.length.should.be.gt(1);\n        done();\n    }); // end",
+              "err": {},
+              "uuid": "47f3f575-fd44-49f2-bf83-81938283a7bf",
+              "parentUUID": "f49ab655-f3d2-4ec6-9b5f-7ddfe761a1b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should list a single campground on /campgrounds/<id> GET",
+              "fullTitle": "YelpCamp should list a single campground on /campgrounds/<id> GET",
+              "timedOut": false,
+              "duration": 42,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n    .get(compoundLinks[1])\n    .end(function(err, res){\n        if(err) throw err;\n        expect(err).to.be.a('null');\n        expect(res).to.not.be.a('null');\n        res.should.have.status(200);\n        var headers = getH4Text(res.text);\n        headers.should.be.a('array');\n        headers[0].should.be.equal('$/night');\n        headers[1].should.be.equal('Salman Greek');\n        \n        done();\n    }); // end",
+              "err": {},
+              "uuid": "ac03028c-fa72-4606-94b2-8f138802e35a",
+              "parentUUID": "f49ab655-f3d2-4ec6-9b5f-7ddfe761a1b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should redirect to create new campground if campground id does not exist on /campgrounds/<id> GET",
+              "fullTitle": "YelpCamp should redirect to create new campground if campground id does not exist on /campgrounds/<id> GET",
+              "timedOut": false,
+              "duration": 31,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n    .get('/campgrounds/5d61509bdffbd51a388cdf3')\n    .end(function(err, res){\n        // console.log(res.text);\n        res.should.have.status(200);\n        var $ = cheerio.load(res.text);\n        var header = $('div > h1' ).text();\n        // console.log(\"header\", header);\n        header.should.be.equal('Create a New Campground');\n        done();\n    }); // end",
+              "err": {},
+              "uuid": "14599365-8e5b-4b02-a33f-01deb6b3bd21",
+              "parentUUID": "f49ab655-f3d2-4ec6-9b5f-7ddfe761a1b5",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "d86520a3-c8a0-4424-ba8f-7b724174f0c0",
+            "3f123fb4-6f2c-4af8-a38e-cd8b04524ff8",
+            "47f3f575-fd44-49f2-bf83-81938283a7bf",
+            "ac03028c-fa72-4606-94b2-8f138802e35a",
+            "14599365-8e5b-4b02-a33f-01deb6b3bd21"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 353,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "7714f59c-5af3-4e12-9a87-92b520ed4e60",
+          "title": "YelpCamp - Add new Campground",
+          "fullFile": "D:\\myYelpCampProject\\YelpCampProject\\test\\test-campgrounds.js",
+          "file": "\\test\\test-campgrounds.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should not add a new campground without UserId on / POST",
+              "fullTitle": "YelpCamp - Add new Campground should not add a new campground without UserId on / POST",
+              "timedOut": false,
+              "duration": 7,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var data = {  name: \"Hope Valley Campground\",\n    image: \"https://kinarino.k-img.com/system/press_images/001/372/397/a206c304213f638c5da602e486507e5c546b6217.jpg?1548589031\",\n\n    description: \"Gorgeous campsites with lots of space and trees and fantastic full hook ups. The only reason this isn't 5 stars is the nearby road noise, but it really was t too bad. The camp operator was very nice and accommodating. I definitely recommend staying here.\",\n    author: {\n        username: \"testUser\"\n        }    \n    };\n    \nchai.request(baseUrl)\n    .post('/')\n    .set('content-type', 'application/json')\n    .send(data)\n    .end(function(err, res){\n        if(err) throw err;\n        res.should.have.status(404);\n        done();\n            }); // end",
+              "err": {},
+              "uuid": "62dd2e17-006e-47a1-a35b-549135109c86",
+              "parentUUID": "7714f59c-5af3-4e12-9a87-92b520ed4e60",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should update existing campground on /campgrounds/:id PUT",
+              "fullTitle": "YelpCamp - Add new Campground should update existing campground on /campgrounds/:id PUT",
+              "timedOut": false,
+              "duration": 51,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n    .get(compoundLinks[1])\n    .end(function(err, res){\n        if(err) throw err;\n        res.should.have.status(200);\n        // console.log(res.text);\n        var $ = cheerio.load(res.text);\n        var campId = $('div > .text-right > a[href]').attr(\"href\")\n        var campgroundId = campId.slice(13, 37);;\n        // console.log(\"CampId:\", campId);\n         chai.request(baseUrl)\n         .put(compoundLinks[1])\n         .send({'name': 'Updated Campground'})\n         .end(function(err, res){\n            res.should.have.status(200);\n        done();\n         }); // end of Update      \n        }); // end",
+              "err": {},
+              "uuid": "d103b8e3-63f8-438b-a46d-12707dd2f104",
+              "parentUUID": "7714f59c-5af3-4e12-9a87-92b520ed4e60",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "62dd2e17-006e-47a1-a35b-549135109c86",
+            "d103b8e3-63f8-438b-a46d-12707dd2f104"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 58,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "efa975ba-a3d9-40b1-bba7-d1f7b4c1fd6e",
+          "title": "YelpCamp - Users",
+          "fullFile": "D:\\myYelpCampProject\\YelpCampProject\\test\\test-users.js",
+          "file": "\\test\\test-users.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should display New user page on /register GET",
+              "fullTitle": "YelpCamp - Users should display New user page on /register GET",
+              "timedOut": false,
+              "duration": 16,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n    .get('/register')\n    .end(function(err, res){\n        if(err) throw err;\n        // expect(err).to.be.a('null');\n        // expect(res).to.not.be.a('null');\n        res.should.have.status(200);\n        // console.log(\"User:\", res.text);\n        res.text.should.contain('<title>YelpCamp</title>');\n        res.text.should.match(/<h1>Sign Up!<\\/h1>/);\n        var result = getParams(res.text);\n        result[0].should.include({type: 'text', name: 'username', placeholder: 'username'});\n        result[1].should.include({ type: 'password', name: 'password', placeholder: 'password' });   \n    done();\n    }); // end",
+              "err": {},
+              "uuid": "16c8f272-bf9a-4c13-8a04-89ece86503e3",
+              "parentUUID": "efa975ba-a3d9-40b1-bba7-d1f7b4c1fd6e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should display login page on /login GET",
+              "fullTitle": "YelpCamp - Users should display login page on /login GET",
+              "timedOut": false,
+              "duration": 17,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n    .get('/login')\n    .end(function(err, res){\n        if(err) throw err;\n        expect(err).to.be.a('null');\n        expect(res).to.not.be.a('null');\n        res.should.have.status(200);\n        res.text.should.contain('<title>YelpCamp</title>');\n        res.text.should.match(/<h1>Login!<\\/h1>/);\n        \n        var result = getParams(res.text);\n        result[0].should.include({type: 'text', name: 'username', placeholder: 'username'});\n        result[1].should.include({ type: 'password', name: 'password', placeholder: 'password' });   \n    done();\n    }); // end",
+              "err": {},
+              "uuid": "468c05de-621d-4528-82d9-162cffcfc765",
+              "parentUUID": "efa975ba-a3d9-40b1-bba7-d1f7b4c1fd6e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should register new user on /register POST",
+              "fullTitle": "YelpCamp - Users should register new user on /register POST",
+              "timedOut": false,
+              "duration": 13,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(baseUrl)\n  .post(\"/register\")\n  .set('content-type', 'application/json')\n  .send({'username': 'Javed', 'password': 'password'})\n  .end(function (err, res, body){\n      if(err) {\n        done(err);\n      } else {\n        expect(err).to.be.a('null');\n        expect(res).to.not.be.a('null');\n        res.status.should.equal(200);\n        // console.log(res);\n        done();  \n      }\n  });",
+              "err": {},
+              "uuid": "8026a8af-be39-4f4d-9614-b6e6e0cb1b7e",
+              "parentUUID": "efa975ba-a3d9-40b1-bba7-d1f7b4c1fd6e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "16c8f272-bf9a-4c13-8a04-89ece86503e3",
+            "468c05de-621d-4528-82d9-162cffcfc765",
+            "8026a8af-be39-4f4d-9614-b6e6e0cb1b7e"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 46,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "6.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {
+        "overwrite": "true"
+      },
+      "version": "4.0.1"
+    }
+  }
+}

@@ -12,6 +12,7 @@ router.get("/", function(req, res){
            console.log(err);
        } else {
           res.render("campgrounds/index",{campgrounds:allCampgrounds});
+          console.log("RESPONSE", res);
        }
     });
 });
@@ -26,7 +27,8 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         id: req.user._id,
         username: req.user.username
     }
-    var newCampground = {name: name, image: image, description: desc, author:author}
+    var newCampground = {name: name, image: image, description: desc, author:author};
+   
     // Create a new campground and save to DB
     Campground.create(newCampground, function(err, newlyCreated){
         if(err){
@@ -50,6 +52,7 @@ router.get("/:id", function(req, res){
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err){
             console.log(err);
+            res.render("campgrounds/new"); 
         } else {
             console.log(foundCampground)
             //render show template with that campground

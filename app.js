@@ -9,14 +9,16 @@ var express = require("express"),
     methodOverride = require("method-override"),
     Comment    = require("./models/comment"),
     User       = require("./models/user"),
-    seedDB     = require("./seed");
+    seedDB     = require("./seed"),
+    {port, ip, host,dbaseUrl, dbasePort} = require("./config");
 
 // requiring Routes
 var indexRoutes    = require("./routes/index");
 var commentRoutes = require("./routes/comments");
 var campgroundRoutes = require("./routes/campgrounds");
 
-// seedDB(); we not seed the database
+seedDB(); 
+// we not seed the database
 
 // configure local session
 app.use(require("express-session")({
@@ -33,7 +35,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Database
-mongoose.connect("mongodb://javedmoham-webdevbootcamp-6869387/yelp_camp_12", {useNewUrlParser: true});
+// mongoose.connect("mongodb://javedmoham-webdevbootcamp-6869387/yelp_camp_12", {useNewUrlParser: true});
+// var url = "mongodb://`${dbaseUrl}`:`${dbasePort}`/yelp_camp_12";
+mongoose.connect('mongodb://localhost:27017/yelp_camp_12', {useNewUrlParser: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -79,7 +83,8 @@ app.use("/campgrounds/:id/comments", commentRoutes);
         
 
 //start up app server
-console.log("host: " + process.env.host + " IP: " + process.env.IP + " Port: " + process.env.PORT);
-app.listen(process.env.PORT, process.env.IP, function(){
+console.log("Host: " + host + " , IP: " + ip + " and Port: " +  port);
+
+app.listen(port, ip, function(){
     console.log("YelpCamp App server is up");
 });
