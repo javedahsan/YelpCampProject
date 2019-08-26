@@ -15,7 +15,7 @@
 ## How to Start Application and Database Instances:
 * Start Mongodb instance:
     * open new terminal session 
-        * cd <mongoDb home>/bin/
+        * cd mongoDb home/bin/
         * run from command line "./mongod"
         * run from command line"./mongo"
 
